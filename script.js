@@ -7,7 +7,7 @@ $(function () {
     displayCurrentDate();
     generateTimeBlocks(startHour, endHour);
     loadSavedEvents();
-  
+    //Here we are adding the event listener that will save the event to local storage when the save button is clicked
     $(".saveBtn").on("click", saveEvent);
     $("#eraseAllBtn").on("click", eraseAll);
   
@@ -18,20 +18,22 @@ $(function () {
   
     //Here we are adding the function that generates the time blocks for the planner and adds them to the page
     function generateTimeBlocks(startHour, endHour) {
+    //Here we are adding the for loop that will generate the time blocks for the planner and add them to the page
       for (let i = startHour; i <= endHour; i++) {
+    //Here we are adding the variable that will store the time block div and its id attribute   
         var timeBlock = $('<div class="row time-block">');
         timeBlock.attr("id", `hour-${i}`);
-    
+    //Here we are adding the variable that will store the time of day for each time block
         var hourEl = $('<div class="col-2 col-md-1 hour text-center py-3">');
         hourEl.text(dayjs().hour(i).format("hA"));
-    
+    //Here we are adding the variable that will store the color class for the time blocks
         var textareaEl = $('<textarea class="col-8 col-md-10 description" rows="3">');
         var colorClass = getColorClass(i);
         textareaEl.addClass(colorClass);
-    
+    //Here we are adding the button that will save the event to local storage
         var saveBtn = $('<button class="btn saveBtn col-2 col-md-1" aria-label="save">');
         saveBtn.html('<i class="fas fa-save" aria-hidden="true"></i>');
-    
+    //Here we are appending the time block div to the container div
         timeBlock.append(hourEl, textareaEl, saveBtn);
         $(".container-lg").append(timeBlock);
       }
@@ -64,7 +66,7 @@ $(function () {
       var timeBlock = $(this).closest(".time-block");
       var hour = timeBlock.attr("id");
       var eventText = timeBlock.find("textarea").val();
-  
+    //Here we are adding the line of code that saves the event to local storage
       localStorage.setItem(hour, eventText);
     }
   
